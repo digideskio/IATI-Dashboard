@@ -36,9 +36,9 @@ columns = {
         ('capital-spend', 'Capital Spend', 1),
         ('document-link', 'Activity Documents', 1),
         ('activity-website', 'Activity Website', 1),
-        ('title_recipient_language', 'Recipient Language', 1),
+        ('title_recipient_language', 'Recipient Language (TBC)', 0),
         ('conditions_attached', 'Conditions Attached', 1),
-        ('result_indicator', 'Result/Indicator', 1),
+        ('result_indicator', 'Result/ Indicator', 1),
         ('valueadded_average', 'Average', 0), # don't include the average in the average
     ]}
 column_headers = {tabname:[x[1] for x in values] for tabname, values in columns.items()}
@@ -57,16 +57,20 @@ def denominator(key, stats):
 def table():
     for publisher_title, publisher in publishers_ordered_by_title:
         publisher_stats = get_publisher_stats(publisher)
+        # Data structure that gets passed to the table
         row = {}
         row['publisher'] = publisher
         row['publisher_title'] = publisher_title
-
+        
+        # This for loop is for non-financials
         for k,v in publisher_stats['comprehensiveness'].items():
             if k not in column_slugs['financials']:
                 if denominator(k, publisher_stats) != 0:
                     row[k] = int(float(v)/denominator(k, publisher_stats)*100)
+                    
         # https://github.com/IATI/IATI-Dashboard/issues/278
         if 'comprehensiveness' in publisher_stats['bottom_hierarchy']:
+            # This loop covers the financials: everything that is low in the hierarchy-attribute of an activity element
             for k,v in publisher_stats['bottom_hierarchy']['comprehensiveness'].items():
                 if k in column_slugs['financials']:
                     if denominator(k, publisher_stats['bottom_hierarchy']) != 0:
