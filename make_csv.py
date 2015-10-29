@@ -91,6 +91,35 @@ for fname, f, assessment_label in (
 
 
 
+# Transaction CSV file (transactions by type and year for all publishers)
+with open(os.path.join('out', 'transactions_type_year.csv'), 'w') as fp:
+    writer = unicodecsv.writer(fp)
+    # Write column headers
+    writer.writerow(['Publisher Name', 'Publisher Registry Id', 'Transaction type', 'Currency', 'Transaction year', 'Value'])
+    
+    # Get the aggregated publisher data
+    agg_publisher_data = data.JSONDir('./stats-calculated/current/aggregated-publisher')
+
+    # Loop over publishers
+    for publisher_list in data.publishers_ordered_by_title:
+        publisher_title = publisher_list[0]
+        publisher_reg_id = publisher_list[1]
+        
+        # Loop over each expenditure type in sum_transactions_by_type_by_year
+        for exp_type in agg_publisher_data[publisher_reg_id]['sum_transactions_by_type_by_year']:
+            
+            # Loop over each currency 
+                for currency in agg_publisher_data[publisher_reg_id]['sum_transactions_by_type_by_year'][exp_type]:
+
+                    # Loop over each year
+                        for year in agg_publisher_data[publisher_reg_id]['sum_transactions_by_type_by_year'][exp_type][currency]:
+                            
+                            # Write the value for each year
+                            value = agg_publisher_data[publisher_reg_id]['sum_transactions_by_type_by_year'][exp_type][currency][year]
+                            writer.writerow([publisher_title, publisher_reg_id, exp_type, currency, year, value])
+
+
+
 # Forward-looking CSV file
 import forwardlooking
 
