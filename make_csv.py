@@ -119,6 +119,23 @@ with open(os.path.join('out', 'transactions_type_year.csv'), 'w') as fp:
                             writer.writerow([publisher_title, publisher_reg_id, exp_type, currency, year, value])
 
 
+# Number of activities per publisher
+with open(os.path.join('out', 'activities_per_publisher.csv'), 'w') as fp:
+    writer = unicodecsv.writer(fp)
+    # Write column headers
+    writer.writerow(['Publisher Name', 'Publisher Registry Id', 'Number of activities'])
+    
+    # Get the aggregated publisher data
+    agg_publisher_data = data.JSONDir('./stats-calculated/current/aggregated-publisher')
+
+    # Loop over publishers
+    for publisher_list in data.publishers_ordered_by_title:
+        publisher_title = publisher_list[0]
+        publisher_reg_id = publisher_list[1]
+        
+        # Write the value for each year
+        writer.writerow([publisher_title, publisher_reg_id, agg_publisher_data[publisher_reg_id]['activities']])
+
 
 # Forward-looking CSV file
 import forwardlooking
