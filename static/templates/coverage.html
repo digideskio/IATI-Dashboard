@@ -6,6 +6,8 @@
         <li><a href="#h_table">Table</a></li>
         <li>|</li>
         <li><a href="#h_narrative">Narrative</a></li>
+        <li>|</li>  
+        <li><a href="#h_comment">Comment</a></li>  
     </ul>
 
     <div class="panel panel-default" id="h_table">
@@ -15,19 +17,23 @@
         
         
         <div class="panel-body">
-            <p>When assessing the overall quality of a publisher's data it is necessary to judge both breadth and depth. The Coverage dimension covered by this table assesses what proportion of an organisation's total output is published through IATI. This is done by comparing a publisher's total 'IATI' spend for a given year  with an external source. As IATI is a multi-stakeholder initiative representing a range of organistion types there is no single source for this comparison: the OECD DAC provides comparison for DAC-reporting bilaterals; the UN System Chief Executives Board for Coordination reports UN agency expenditures; INGOs and foundations publish annual reports, usually with audited financial statements.</p>
+            <p>When assessing the overall quality of a publisher's data it is necessary to judge both breadth and depth. The previous dimensions have assessed the breadth. The Coverage dimension in this table assesses the depth by showing what proportion of an organisation's total output is published through IATI. For each publisher, the total spend published to IATI for a given year is compared with an external source. The resulting spend ratios are used to adjust the scores for the other dimensions using the following scale of coverage: Excellent: 80% or over (adjustment factor 100%); Good: 60 – 80% (adjustment factor 80%); Fair: 40 – 60% (adjustment factor 60%); and Poor: less than 40% (adjustment factor 40%).</p>
+
+            <p>As IATI is a multi-stakeholder initiative representing a range of organisation types, there is no single source for this comparison: the OECD DAC provides comparison for DAC-reporting bilaterals; the UN System Chief Executives Board for Coordination reports UN agency expenditures; INGOs and foundations publish annual reports, usually with audited financial statements.</p>
 
             <p>The IATI technical team is still working on pulling these disparate sources together into a single table for use here. For the moment it is acting as a placeholder, with all publishers assessed at 100%.</p>
+
+            {% include 'tablesorter_instructions.html' %}
         </div>
         
         <table class="table table-striped" id="main_table">
             <thead>
                 <tr>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Publisher Name</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">IATI 2014 Spend<br/> (US $m)</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Reference 2014 Spend<br/> (US $m)</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Spend Ratio<br/> (%)</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Coverage<br/> (%)</td>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Publisher Name</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">IATI 2014 Spend<br/> (US $m)</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Reference 2014 Spend<br/> (US $m)</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Spend Ratio<br/> (%)</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Coverage<br/> (%)</th>
                 </tr>
             </thead>
             <tbody>
@@ -66,4 +72,20 @@
     </div>
 
 
+    <div class="panel panel-default" id="h_comment">
+    <div class="panel-heading">
+        <h3 class="panel-title">Comment</h3>
+    </div>
+    <div class="panel-body">
+        <p>You are invited to participate in the consultation which is taking place on the <a href="http://discuss.iatistandard.org/t/indicator-coverage-methodology-consultation-space/357/1">IATI Discussion Forum</a>.</p>
+    </div>
+    </div>
+
+
+{% endblock %}
+
+{% block tablesorteroptions %}
+{
+    widgets: ['stickyHeaders']
+}
 {% endblock %}

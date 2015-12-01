@@ -6,6 +6,8 @@
         <li><a href="#h_table">Table</a></li>
         <li>|</li>
         <li><a href="#h_narrative">Narrative</a></li>
+        <li>|</li>
+        <li><a href="#h_comment">Comment</a></li>
     </ul>
 
     <div class="panel panel-default" id="h_table">
@@ -23,24 +25,28 @@
             their IATI data. The methodology is explained below the table and in the related Publisher Statistics pages. Please note that all Coverage values are currently set to 100% as the logic for these calculations is still being finalised. In summary:</p>
 
             <p><strong>{Score}</strong> = ( {Timeliness} + {Forward looking} + {Comprehensive} ) / 3 &nbsp; and &nbsp;&nbsp;<strong>{Coverage-adjusted Score}</strong> = {Score} * {Coverage} / 100</p>You are invited to participate in the consultation which is taking place on the <a href="http://discuss.iatistandard.org/c/consultations">IATI Discussion Forum</a></p>
+
+            {% include 'tablesorter_instructions.html' %}
         </div>
         
         <table class="table table-striped" id="main_table">
             <thead>
                 <tr>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Publisher Name</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Timeliness</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Forward looking</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Comprehensive</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Score</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Coverage</td>
-                    <td style="vertical-align:middle; border: 1px solid gray;">Coverage-adjusted score</td>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Publisher Name</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Publisher Type</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Timeliness</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Forward looking</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Comprehensive</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Score</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Coverage</th>
+                    <th style="vertical-align:middle; border: 1px solid gray;">Coverage-adjusted score</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in transparencyindicator.table() %}
                 <tr {% if loop.last %} style="border-bottom: 1px solid gray;"{% endif %}>
-                    <td style="border-right: 1px solid gray; border-left: 1px solid gray;"><a href="publisher/{{publisher}}.html">{{row.publisher_title}}</a></td>
+                    <td style="border-right: 1px solid gray; border-left: 1px solid gray;"><a href="publisher/{{row.publisher}}.html">{{row.publisher_title}}</a></td>
+                    <td style="border-right: 1px solid gray; border-left: 1px solid gray;">{{row.publisher_type.name}}</td>
                     <td style="border-right: 1px solid gray; border-left: 1px solid gray;">{{row.timeliness}}</td>
                     <td style="border-right: 1px solid gray; border-left: 1px solid gray;">{{row.forwardlooking}}</td>
                     <td style="border-right: 1px solid gray; border-left: 1px solid gray;">{{row.comprehensive}}</td>
@@ -155,4 +161,20 @@
     </div>
 
 
+    <div class="panel panel-default" id="h_comment">
+    <div class="panel-heading">
+        <h3 class="panel-title">Comment</h3>
+    </div>
+    <div class="panel-body">
+        <p>You are invited to participate in the consultation which is taking place on the <a href="http://discuss.iatistandard.org/t/indicator-scoring-methodology-consultation-space/358/1">IATI Discussion Forum</a>.</p>
+    </div>
+    </div>
+
+
+{% endblock %}
+
+{% block tablesorteroptions %}
+{
+    widgets: ['stickyHeaders']
+}
 {% endblock %}
